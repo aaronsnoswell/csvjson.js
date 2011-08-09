@@ -28,7 +28,7 @@ var csvjson = {};
 		var textdelim = isdef(args.textdelim) ? args.textdelim : "";
 		
 		var csvlines = csvdata.split("\n");
-		var csvheaders = csvlines[0].split(delim);
+		var csvheaders = csvlines[0].replace(new RegExp(textdelim, 'g'), "").split(delim);
 		var csvrows = csvlines.slice(1, csvlines.length);
 		
 		var ret = {};
@@ -44,7 +44,7 @@ var csvjson = {};
 				var item = rowitems[i];
 				
 				// Remove any text delimiters present in the items
-				if(textdelim.length !== 0) item.replace(textdelim, "");
+				if(textdelim.length !== 0) item = item.replace(new RegExp(textdelim, 'g'), "");
 				
 				// ...and try to (intelligently) cast the item to a number
 				if((item.indexOf(" ") == -1) && !isNaN(parseFloat(item))) {
