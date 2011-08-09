@@ -1,6 +1,6 @@
 /**
  * csvjson.js - A script to convert between CSV and JSON formats
- * Author: Aaron Snoswell (@aaronsnoswell, www.elucidatedbianry.com)
+ * Author: Aaron Snoswell (@aaronsnoswell, elucidatedbianry.com)
  */
 
 // Namespace
