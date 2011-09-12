@@ -39,6 +39,9 @@ var csvjson = {};
 			var row = csvrows[r];
 			var rowitems = row.split(delim);
 			
+			// Break if we're at the end of the file
+			if(row.length == 0) break;
+			
 			var rowob = {};
 			for(var i in rowitems) {
 				var item = rowitems[i];
