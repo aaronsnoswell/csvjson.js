@@ -50,8 +50,8 @@ var csvjson = {};
 				if(textdelim.length !== 0) item = item.replace(new RegExp(textdelim, 'g'), "");
 				
 				// ...and try to (intelligently) cast the item to a number
-				if((item.indexOf(" ") == -1) && !isNaN(parseFloat(item))) {
-					item = parseFloat(item);
+				if(!isNaN(item*1)) {
+					item = item*1;
 				}
 				
 				rowob[csvheaders[i]] = item;
