@@ -14,6 +14,23 @@ var csvjson = {};
 	}
 	
 	/**
+	 * splitCSV function (c) 2009 Brian Huisman, see http://www.greywyvern.com/?post=258
+	 * Works by spliting on seperators first, then patching together quoted values
+	 */
+	function splitCSV(str, sep) {
+        for (var foo = str.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
+            if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
+                if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
+                    foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
+                } else if (x) {
+                    foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
+                } else foo = foo.shift().split(sep).concat(foo);
+            } else foo[x].replace(/""/g, '"');
+        } return foo;
+    };
+	
+	
+	/**
 	 * Converts from CSV formatted data (as a string) to JSON returning
 	 * 	an object.
 	 * @required csvdata {string} The CSV data, formatted as a string.
@@ -25,10 +42,10 @@ var csvjson = {};
 	csvjson.csv2json = function(csvdata, args) {
 		args = args || {};
 		var delim = isdef(args.delim) ? args.delim : ",";
-		var textdelim = isdef(args.textdelim) ? args.textdelim : "";
+		//var textdelim = isdef(args.textdelim) ? args.textdelim : "";
 		
 		var csvlines = csvdata.split("\n");
-		var csvheaders = csvlines[0].replace(new RegExp(textdelim, 'g'), "").split(delim);
+		var csvheaders = splitCSV(csvlines[0], delim);
 		var csvrows = csvlines.slice(1, csvlines.length);
 		
 		var ret = {};
@@ -37,7 +54,7 @@ var csvjson = {};
 		
 		for(var r in csvrows) {
 			var row = csvrows[r];
-			var rowitems = row.split(delim);
+			var rowitems = splitCSV(row, delim);
 			
 			// Break if we're at the end of the file
 			if(row.length == 0) break;
@@ -47,7 +64,7 @@ var csvjson = {};
 				var item = rowitems[i];
 				
 				// Remove any text delimiters present in the items
-				if(textdelim.length !== 0) item = item.replace(new RegExp(textdelim, 'g'), "");
+				//if(textdelim.length !== 0) item = item.replace(new RegExp(textdelim, 'g'), "");
 				
 				// ...and try to (intelligently) cast the item to a number
 				if(!isNaN(item*1)) {
