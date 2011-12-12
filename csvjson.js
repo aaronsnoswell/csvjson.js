@@ -42,6 +42,7 @@ var csvjson = {};
 	csvjson.csv2json = function(csvdata, args) {
 		args = args || {};
 		var delim = isdef(args.delim) ? args.delim : ",";
+		// Unused
 		//var textdelim = isdef(args.textdelim) ? args.textdelim : "";
 		
 		var csvlines = csvdata.split("\n");
@@ -63,10 +64,7 @@ var csvjson = {};
 			for(var i in rowitems) {
 				var item = rowitems[i];
 				
-				// Remove any text delimiters present in the items
-				//if(textdelim.length !== 0) item = item.replace(new RegExp(textdelim, 'g'), "");
-				
-				// ...and try to (intelligently) cast the item to a number
+				// Try to (intelligently) cast the item to a number, if applicable
 				if(!isNaN(item*1)) {
 					item = item*1;
 				}
