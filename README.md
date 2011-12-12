@@ -1,3 +1,5 @@
+# csvjson.js
+
 csvjson.js is a simple standalone JavaScript file to convert between CSV data
 and JSON objects. It is released under the MIT License and fits under 1kb when
 minified (even less when gzipped).
