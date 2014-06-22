@@ -42,12 +42,22 @@ var csvjson = {};
 	csvjson.csv2json = function(csvdata, args) {
 		args = args || {};
 		var delim = isdef(args.delim) ? args.delim : ",";
+	  	var header = isdef(args.header) ? args.header : true;
 		// Unused
 		//var textdelim = isdef(args.textdelim) ? args.textdelim : "";
+
+    		// normalize line breaks before continue
+    		csvdata.replace(/\x0A\x0D/g, '\n').replace(/\x0D/g, '\n');
 
 		var csvlines = csvdata.split("\n");
 		var csvheaders = splitCSV(csvlines[0], delim);
 		var csvrows = csvlines.slice(1, csvlines.length);
+
+		if (!header) {
+			for (var i = 0; i < csvheaders.length; i++) {
+		  	csvheaders[i] = i;
+			};
+		}
 
 		var ret = {};
 		ret.headers = csvheaders;
