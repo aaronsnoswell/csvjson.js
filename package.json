@@ -6,6 +6,7 @@
     "author":{
         "name":"Aaron Snoswell"
     },
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "git://github.com/aaronsnoswell/csvjson.js.git"
