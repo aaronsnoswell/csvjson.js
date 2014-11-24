@@ -1,0 +1,20 @@
+{
+    "name" : "csvjson" ,
+    "description" : "A simple javascript file to convert between CSV and JSON" ,
+    "version":"1.0.0",
+    "main": "csvjson.js",
+    "author":{
+        "name":"Aaron Snoswell"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/aaronsnoswell/csvjson.js.git"
+    },
+    "readmeFilename": "README.md",
+    "keywords": [
+        "csv",
+        "csvtojson",
+        "csv2json"
+    ]
+}
